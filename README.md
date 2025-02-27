@@ -56,7 +56,10 @@ These parameters **control the shape of the torus**, adjusting its width, height
 
 ### **Real-World Applications**
 🔹 **Mathematical Art & Visualization** 
+
 🔹 **3D Modeling for Game Development** 
+
 🔹 **Physics Simulations (Motion of Particles on Curved Surfaces)** 
+
 🔹 **Topology & Knot Theory Research** 
 
