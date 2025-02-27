@@ -32,7 +32,7 @@ These parameters **control the shape of the torus**, adjusting its width, height
    - This allows the shape to rotate around a **central axis**, forming the toroidal structure.
 
 3. **Height Deformation (`h` term)**
-   - The [h*sin{(R/r)*v}] and [h*cos{(R/r)*v}] terms control **vertical deformation**.
+   - The [ h * sin {(R/r)*v} ] and [ h * cos {(R/r)*v} ] terms control **vertical deformation**.
    - This is what gives the torus a **wavy or oscillating** appearance.
 
 ---
