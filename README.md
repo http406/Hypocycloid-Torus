@@ -24,8 +24,8 @@ These parameters **control the shape of the torus**, adjusting its width, height
 
 ### **Breaking Down the Equation**
 1. **Core Motion (`v` dependency)**
-   - The **hypocycloid motion** comes from **\( \sin(v) \) and \( \cos(v) \)** terms.
-   - The **(R/r)*v** term creates multiple loops due to the ratio between the two radii.
+   - The **hypocycloid motion** comes from sin(v) and cos(v) terms.
+   - The (R/r)*v term creates multiple loops due to the ratio between the two radii.
 
 2. **Torus Shape (`u` dependency)**
    - The **cos(u)** and **sin(u)** terms create the **ring-like structure**.
