@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hypocycloid Torus</title>
+    <style>
+        body { 
+        margin: 0; 
+        outline: none;
+        -webkit-tap-highlight-color: transparent;
+        }
+        canvas { display: block; }
+        #infoButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .info-popup {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: left;
+            user-select: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <button id="infoButton">&#9432;</button>
+    <div class="info-popup" id="infoPopup">
+        <p style="text-align:center;" ><strong>Hypocycloid Torus</strong></p>
+    <p style="color:pink; text-align: center;">A Hypocycloid Torus is a fascinating shape formed by the motion of a smaller circle rolling inside a larger circle, where the path traced by a point on the smaller circle generates a hypocycloid curve. When this motion is extended into 3D, a Hypocycloid Torus is created.</p>
+            <p style="text-align:center;">For Equations visit my Github. Enjoy!</p>
+    </div>
+    <script>
+        let scene, camera, renderer, torus, stars;
+
+        function init() {
+            // Scene
+            scene = new THREE.Scene();
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Geometry for Hypocycloid Torus
+            const R1 = 1, R = 5, r = 1, h = 1;
+            const geometry = new THREE.ParametricGeometry((u, v, target) => {
+                u = u * 12 * Math.PI;
+                v = v * 2 * Math.PI;
+
+                const x = (R1 + (R - r) * Math.sin(v) - h * Math.sin((R / r) * v)) * Math.cos(u);
+                const y = (R - r) * Math.cos(v) + h * Math.cos((R / r) * v);
+                const z = (R1 + (R - r) * Math.sin(v) - h * Math.sin((R / r) * v)) * Math.sin(u);
+                
+                target.set(x, y, z);
+            }, 150, 150);
+
+            // Compute Vertex Colors for Gradient Effect
+            const colors = [];
+            const positions = geometry.attributes.position;
+            for (let i = 0; i < positions.count; i++) {
+                const y = positions.getY(i);
+                const color = new THREE.Color();
+                color.setHSL((y + 5) / 10, 1.0, 0.5); // Gradient from blue to red
+                colors.push(color.r, color.g, color.b);
+            }
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            // Material with Vertex Colors
+            const material = new THREE.MeshBasicMaterial({ 
+                vertexColors: true, 
+                wireframe: true 
+            });
+
+            // Mesh
+            torus = new THREE.Mesh(geometry, material);
+            scene.add(torus);
+
+            // Add Stars Background
+            addStars();
+
+            // Animation
+            animate();
+        }
+
+        function addStars() {
+            const starGeometry = new THREE.BufferGeometry();
+            const starCount = 1000; 
+            const positions = [];
+            const colors = [];
+
+            for (let i = 0; i < starCount; i++) {
+                // Random positions within a large cube
+                const x = (Math.random() - 0.5) * 200;
+                const y = (Math.random() - 0.5) * 200;
+                const z = (Math.random() - 0.5) * 200;
+                positions.push(x, y, z);
+
+                // Random colors (blue, purple, white, yellow)
+                const color = new THREE.Color();
+                color.setHSL(Math.random(), 1, 0.8);
+                colors.push(color.r, color.g, color.b);
+            }
+
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+            const starMaterial = new THREE.PointsMaterial({
+                size: 0.15,
+                vertexColors: true,
+                transparent: true,
+                opacity: 1,
+                depthWrite: false
+            });
+
+            stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the torus
+            torus.rotation.x += 0.01;
+            torus.rotation.y += 0.01;
+
+            // Make stars twinkle
+            const starPositions = stars.geometry.attributes.position.array;
+            for (let i = 0; i < starPositions.length; i += 3) {
+                starPositions[i + 1] += Math.sin(Date.now() * 0.001 + starPositions[i]) * 0.005;
+            }
+            stars.geometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // Initialize
+        init();
+        
+        $("#infoButton").click(function() {
+            $("#infoPopup").fadeToggle();
+        });
+    </script>
+</body>
+  </html>
+  
