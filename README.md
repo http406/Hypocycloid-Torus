@@ -28,11 +28,11 @@ These parameters **control the shape of the torus**, adjusting its width, height
    - The **(R/r)*v** term creates multiple loops due to the ratio between the two radii.
 
 2. **Torus Shape (`u` dependency)**
-   - The **\( \cos(u) \)** and **\( \sin(u) \)** terms create the **ring-like structure**.
+   - The **cos(u)** and **sin(u)** terms create the **ring-like structure**.
    - This allows the shape to rotate around a **central axis**, forming the toroidal structure.
 
 3. **Height Deformation (`h` term)**
-   - The **h*sin(R/r)*v** and **h*cos(R/r)*v** terms control **vertical deformation**.
+   - The **[h*sin(R/r)*v]** and **[h*cos(R/r)*v]** terms control **vertical deformation**.
    - This is what gives the torus a **wavy or oscillating** appearance.
 
 ---
