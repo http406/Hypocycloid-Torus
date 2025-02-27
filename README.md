@@ -8,17 +8,7 @@ A **Hypocycloid Torus** is a fascinating shape formed by the motion of a **small
 ### **Understanding the Parametric Equation**
 The equation used in the code is based on the **parametric equations** of a **hypocycloid surface**. The standard form of the equations for a **Hypocycloid Torus** is:
 
-\[
-x = \left( R1 + (R - r) \sin(v) - h \sin\left(\frac{R}{r} v \right) \right) \cos(u)
-\]
-
-\[
-y = (R - r) \cos(v) + h \cos\left(\frac{R}{r} v \right)
-\]
-
-\[
-z = \left( R1 + (R - r) \sin(v) - h \sin\left(\frac{R}{r} v \right) \right) \sin(u)
-\]
+![Image](https://github.com/user-attachments/assets/a42725ba-62e9-4d4e-a43e-7aa70f88019d)
 
 Where:  
 - **\( R1 \) = 1** → A small constant radius controlling the base shape.  
